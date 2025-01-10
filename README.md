@@ -24,13 +24,13 @@ We interpret case 2 and 3 as examples of *Induction Heads*.
 #### Classification Probes
 
 For each layer and head of TinyStories-1M, we train a multinomial logistic regression probe 
-$$
+```math
 p_k(\mathbf{x}) = \mathrm{softmax}_k(W\mathbf{x} + \mathbf{b})
-$$
+```
 on key and query vectors $\mathbf{x} \in \mathbb{R}^{d_k}$, for $K$ different POS-tags. To fit the weight matrix $W \in \mathbb{R}^{K\times {d_k}}$ and bias term $\mathbf{b} \in \mathbb{R}^K$, we minimize the expected *cross-entropy loss*:
-$$
+```math
 \mathcal{L} =- \sum_{k=1}^K[y_i=k]\log(p_k(\mathbf{x_i}))
-$$
+```
 for a given activation $\mathbf{x}_i$ with label $y_i\in\{1, \dots, K\}$ (converted from POS-tag to an integer).
 
 
@@ -38,9 +38,9 @@ for a given activation $\mathbf{x}_i$ with label $y_i\in\{1, \dots, K\}$ (conver
 
 For $\mathrm{head}_i$, we compute its contribution ($c_{i} \in \mathbb{R}^{d_{model}}$) to the Multi-Head Attention (MHA) output for each token in a sequence:
 
-$$
+```math
 c_{i} = \mathrm{head}_{i} W^O_{[start_i\,:\,end_i,\;\::\;\:]}
-$$
+```
 
 with $start_i, end_i$ being the start and end indices of $\mathrm{head}_i$ in the concatenated MHA. $c_{i}$ is then the component of a multi-head attention block's output, which head $i$ is responsible for. $W^O \in \mathbb{R}^{h \cdot d_k \times d_{\text{model}}}$ is the weight matrix that filter the MHA into the residual stream. For TinyStories-1M which has $h = 16$ heads, each with size $d_k=4$,  $d_{model}= h \cdot d_k = 64$.
 
@@ -52,19 +52,24 @@ We then use the euclidean norm $\|c_{i}\|_2$ to measure the magnitude of $\mathr
 
 
 ![Probe results for beginning of quote](figures/case_studies/quote_heads/inquote.png)
+
 *Probe accuracy results for beginning of quote*
+
 ![Probe results for end of quote](figures/case_studies/quote_heads/outquote.png)
+
 *Probe accuracy results for end of quote*
 
 We assess the performance of the key-probes on the POS-tags `` (beginning of quote) and '' (end of quote) and find that L2H0 performs well on both. This suggests that it attends highly to both the beginning of quotation and the end of a quotations.
 
 
 ![quote_activity](figures/case_studies/quote_heads/quote_activity.png)
+
 *Activity of L2H0 on an example sentence*
 
 When observing the activity of L2H0, we find that its contribution to the residual stream is high while inside a quotation, but drops off sharply afterwards.
 
 ![quote_activity](figures/case_studies/quote_heads/quote_attention.png)
+
 *Attention pattern of L2H0 on an example sentence*
 
 We inspect the attention pattern of L2H0  and find that while inside a quotation, it attends highly to the start-quotation mark, until the end, when it shifts to the end-quotation mark.
@@ -72,29 +77,37 @@ We inspect the attention pattern of L2H0  and find that while inside a quotation
 ### Case Study 2: Past Tense Verb Induction Head
 
 ![Probe accuracy results for past tense verb](figures/case_studies/preverb_heads/perverb_probe_VBD.png)
+
 *Probe accuracy results for past tense verb*
 
 We inspect the key-probes and find that the performance in classifying the tag VBD (verbs in past tense) is high when trained on the early layers, but drops off gradually through the model. There is, however, one notable exception: L6H4 exhibits a high F1-score, so we investigate it.
 
 ![Activity of L6H4 on an example sentence](figures/case_studies/preverb_heads/preverb_ativity.png)
+
 *Activity of L6H4 on an example sentence*
+
 ![Attention pattern of L6H4 on an example sentence](figures/case_studies/preverb_heads/preverb_attention.png)
+
 *Attention pattern of L6H4 on an example sentence*
+
 We find that the activity of L6H4 is high immediately before a verb in past tense. At those points, it attends back to previous nouns.
 
 ### Case Study 3: Definite Noun Induction Head
 
 ![Probe results for possesive pronouns](figures/case_studies/prenoun_heads/prp_probes.png)
+
 *Probe results for possesive pronouns*
 
 We inspect the query-probes that do well in classifying the tag PRP\$ (possessive pronouns) and after further qualitative investigations, we find that one of them, L5H5, exhibits an interesting pattern. 
 
 ![Activity of L5H5 on an example sentence](figures/case_studies/prenoun_heads/quote_activity.png)
+
 *Activity of L5H5 on an example sentence*
 
 We see that the attention head is particularly active on possessive pronouns (as expected) and the definite article, always right before a noun. 
 
 ![Attention pattern of L5H5 on an example sentence](figures/case_studies/prenoun_heads/quote_attention.png)
+
 *Attention pattern of L5H5 on an example sentence*
 
 On these tokens, the head attends to the most recent other nouns
