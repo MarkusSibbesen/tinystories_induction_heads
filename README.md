@@ -42,10 +42,10 @@ For $`\mathrm{head}_i`$, we compute its contribution ($c_{i} \in \mathbb{R}^{d_{
 c_{i} = \mathrm{head}_{i} W^O_{[start_i\,:\,end_i,\;\::\;\:]}
 ```
 
-with $start_i, end_i$ being the start and end indices of $\mathrm{head}_i$ in the concatenated MHA. $c_{i}$ is then the component of a multi-head attention block's output, which head $i$ is responsible for. $W^O \in \mathbb{R}^{h \cdot d_k \times d_{\text{model}}}$ is the weight matrix that filter the MHA into the residual stream. For TinyStories-1M which has $h = 16$ heads, each with size $d_k=4$,  $d_{model}= h \cdot d_k = 64$.
+with $start_i, end_i$ being the start and end indices of $`\mathrm{head}_i`$ in the concatenated MHA. $c_{i}$ is then the component of a multi-head attention block's output, which head $i$ is responsible for. $W^O \in \mathbb{R}^{h \cdot d_k \times d_{\text{model}}}$ is the weight matrix that filter the MHA into the residual stream. For TinyStories-1M which has $h = 16$ heads, each with size $d_k=4$,  $d_{model}= h \cdot d_k = 64$.
 
 
-We then use the euclidean norm $\|c_{i}\|_2$ to measure the magnitude of $\mathrm{head}_i$'s contribution. We refer to this magnitude as the head's *activity*.
+We then use the euclidean norm $\|c_{i}\|_2$ to measure the magnitude of $`\mathrm{head}_i`$'s contribution. We refer to this magnitude as the head's *activity*.
 
 
 ### Case study 1: Quotation head
