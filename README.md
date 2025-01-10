@@ -27,7 +27,7 @@ For each layer and head of TinyStories-1M, we train a multinomial logistic regre
 ```math
 p_k(\mathbf{x}) = \mathrm{softmax}_k(W\mathbf{x} + \mathbf{b})
 ```
-on key and query vectors $\mathbf{x} \in \mathbb{R}^{d_k}$, for $K$ different POS-tags. To fit the weight matrix $W \in \mathbb{R}^{K\times {d_k}}$ and bias term $\mathbf{b} \in \mathbb{R}^K$, we minimize the expected *cross-entropy loss*:
+on key and query vectors $`\mathbf{x} \in \mathbb{R}^{d_k}`$, for $K$ different POS-tags. To fit the weight matrix $W \in \mathbb{R}^{K\times {d_k}}$ and bias term $\mathbf{b} \in \mathbb{R}^K$, we minimize the expected *cross-entropy loss*:
 ```math
 \mathcal{L} =- \sum_{k=1}^K[y_i=k]\log(p_k(\mathbf{x_i}))
 ```
@@ -36,7 +36,7 @@ for a given activation $\mathbf{x}_i$ with label $y_i\in\{1, \dots, K\}$ (conver
 
 #### Measuring the Contribution to the Residual Stream (*activity*)
 
-For $\mathrm{head}_i$, we compute its contribution ($c_{i} \in \mathbb{R}^{d_{model}}$) to the Multi-Head Attention (MHA) output for each token in a sequence:
+For $`\mathrm{head}_i`$, we compute its contribution ($c_{i} \in \mathbb{R}^{d_{model}}$) to the Multi-Head Attention (MHA) output for each token in a sequence:
 
 ```math
 c_{i} = \mathrm{head}_{i} W^O_{[start_i\,:\,end_i,\;\::\;\:]}
