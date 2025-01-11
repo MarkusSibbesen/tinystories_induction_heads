@@ -50,6 +50,8 @@ We then use the euclidean norm $\|c_{i}\|_2$ to measure the magnitude of $`\math
 
 ### Case study 1: Quotation head
 
+test
+
 
 ![Probe results for beginning of quote](figures/case_studies/quote_heads/inquote.png)
 
