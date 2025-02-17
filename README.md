@@ -90,7 +90,7 @@ We inspect the key-probes and find that the performance in classifying the tag V
 
 *Attention pattern of L6H4 on an example sentence*
 
-We find that the activity of L6H4 is high immediately before a verb in past tense. At those points, it attends back to previous nouns.
+We find that the activity of L6H4 is high immediately before a verb in past tense. At those points, it attends back to previous verbs.
 
 ### Case Study 3: Definite Noun Induction Head
 
