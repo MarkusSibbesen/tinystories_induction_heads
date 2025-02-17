@@ -110,7 +110,7 @@ We see that the attention head is particularly active on possessive pronouns (as
 
 *Attention pattern of L5H5 on an example sentence*
 
-On these tokens, the head attends to the most recent other nouns
+On these tokens, the head attends to the most recent other nouns (note, however, the "misclassified" verb *wound*, which the model interprets as a noun).
 
 ---
 ## Prerequisites
